@@ -1,0 +1,48 @@
+@mixin font-size($sizeValue: 1.6){
+  font-size: ($sizeValue * 10) + px;
+  font-size: $sizeValue + rem;
+}
+
+@mixin line-height($sizeValue: 1.6){
+  line-height: ($sizeValue * 10) + px;
+  line-height: $sizeValue + rem;
+}
+
+$nanum: '나눔고딕';
+
+@function weight( $style ) {
+	$weight:0;
+	
+	@if 	 $style == 35 { $weight: 300; }
+	@else if $style == 36 { $weight: 300; }
+	@else if $style == 45 { $weight: 400; }
+	@else if $style == 46 { $weight: 400; }
+	
+	@return $weight;
+}
+
+@function style( $style ) {
+	
+	@if 	 $style == 35 { $style: normal; }
+	@else if $style == 36 { $style: italic; }
+	@else if $style == 45 { $style: normal; }
+	@else if $style == 46 { $style: italic; }
+	
+	@return $style;
+}
+
+@mixin text($size:2.0,$s:35,$lineheight:1,$l:0) {
+	
+	$font: '';
+	@if $s < 35 { $font: "Helvetica Neue"; } @else { $font: $nanum; }
+	
+  	font : {
+		family : $font, NanumGothic, '돋움',Dotum, Helvetica, Arial, sans-serif;
+		
+		weight: weight( $s );
+		style:  style( $s );
+	}
+	@include font-size($size);
+	letter-spacing: #{$l}px;
+	line-height: $lineheight;
+}

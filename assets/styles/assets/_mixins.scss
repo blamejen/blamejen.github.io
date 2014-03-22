@@ -1,0 +1,171 @@
+/* =========== */
+/* = Pathing = */
+/* =========== */
+
+$imgpath: '../images/';
+@function img($name) {
+    @return #{$imgpath}#{$name};
+}
+
+/* =========== */
+/* = Colours = */
+/* =========== */
+
+$white:  #ffffff;
+$black: #000000;
+
+$dark:  #19171c;
+$light: #f6f6f6;
+
+$pinkred: #ff625a;
+
+$textclr: #191919;
+$highlight: $pinkred;
+
+/* ========= */
+/* = Sizes = */
+/* ========= */
+
+$baseline: 22px;
+$gutter: 20px;
+
+@function baseline($multiplier:1) {
+  @return $baseline * $multiplier;
+}
+
+@function gutter($multiplier:1) {
+  @return $gutter * $multiplier;
+}
+
+/* ========== */
+/* = Mixins = */
+/* ========== */
+
+@mixin pie() {
+  behavior: url(#{$pie});
+}
+
+@mixin rgba($hex, $opacity) {
+  background-color: rgba($hex, $opacity);
+  @include pie;
+}
+
+@mixin right($w) {
+  margin-left: auto;
+  margin-right: 0;
+  width: #{$w}px;
+}
+
+@mixin left($w) {
+  margin-left: 0;
+  margin-right: auto;
+  width: #{$w}px;
+}
+
+@mixin float-children($children:false,$direction:left,$width:false) {
+  @include clear-floats;
+
+  @if $children == false {
+        $children: '*';
+    }
+
+    & > #{$children} {
+        float:$direction;
+
+        @if $width != false { 
+            width: $width; 
+        }
+    }
+}
+
+@mixin background-cover() {
+  background: no-repeat center center;
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+}
+
+@mixin transition($duration){
+  -webkit-transition: all #{$duration}s ease-in-out;
+  -moz-transition: all #{$duration}s ease-in-out;
+  -o-transition: all #{$duration}s ease-in-out;
+  -ms-transition: all #{$duration}s ease-in-out;
+  transition: all #{$duration}s ease-in-out;
+}
+
+@mixin dot($c:$red, $s:12){
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  border-radius: 8px;
+  position: relative;
+  display: block;
+  width: #{$s}px;
+  height: #{$s}px;
+  overflow: hidden;
+  text-indent: -9999em;
+  background-color: $c;
+}
+
+@mixin arrow-left($s:14,$c:$black) {
+  width: 0; 
+  height: 0; 
+  border-top: #{$s}px solid transparent;
+  border-bottom: #{$s}px solid transparent; 
+  border-right: #{$s}px solid $c; 
+}
+
+@mixin arrow-top($s:14,$c:$black) {
+  width: 0; 
+  height: 0; 
+  border-left: #{$s}px solid transparent;
+  border-right: #{$s}px solid transparent; 
+  border-bottom: #{$s}px solid $c; 
+}
+
+@mixin border-radius($radius) {
+  -moz-border-radius: #{$radius};
+  -webkit-border-radius: #{$radius};
+  border-radius: #{$radius};
+  -webkit-background-clip: padding-box; /* fix webkit rounded corners from showing 2 shaded pixels */
+}
+
+@mixin box-shadow($x:4,$y:4,$size:10,$rgb:$black,$a:1,$style:'') {
+  -webkit-box-shadow: #{$x}px #{$y}px #{$size}px rgba($rgb, $a) unquote($style);
+  -moz-box-shadow:    #{$x}px #{$y}px #{$size}px rgba($rgb, $a) unquote($style);
+  -o-box-shadow:      #{$x}px #{$y}px #{$size}px rgba($rgb, $a) unquote($style);
+  box-shadow:         #{$x}px #{$y}px #{$size}px rgba($rgb, $a) unquote($style);
+}
+
+@mixin text-shadow($x:0,$y:1,$size:0,$clr:#000,$a:0.4) {
+  text-shadow:#{$x}px #{$y}px $size rgba($clr,$a);
+}
+
+@mixin linear-gradient($start,$end) {
+    background: $end; // fallback
+    background: -moz-linear-gradient(top, $start 0%, $end 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, $start), color-stop(100%, $end)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, $start 0%, $end 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, $start 0%, $end 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, $start 0%, $end 100%); /* IE10+ */
+    //filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$start}', endColorstr='#{$end}',GradientType=0 ); /* IE6-9 */
+    background: linear-gradient(top, $start 0%, $end 100%); /* W3C */
+}
+
+.__clearfix {
+  &:before,
+  &:after {
+      content:"";
+      display:table;
+  }
+  &:after {
+      clear:both;
+  }
+  zoom:1;
+}
+
+@mixin clear-floats {
+  @extend .__clearfix;
+}

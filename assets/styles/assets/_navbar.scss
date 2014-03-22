@@ -1,0 +1,429 @@
+//
+// Navbars
+// --------------------------------------------------
+
+.clearfix {
+  &:before,
+  &:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+// Wrapper and base class
+//
+// Provide a static navbar from which we expand to create full-width, fixed, and
+// other navbar variations.
+
+$grid-float-breakpoint: 992px;
+$screen-xs-max: 991px;
+
+$navbar-height: 50px;
+$navbar-margin-bottom: 20px;
+$navbar-border-radius: 4px;
+
+@mixin navbar-vertical-align($element-height) {
+  margin-top: (($navbar-height - $element-height) / 2);
+  margin-bottom: (($navbar-height - $element-height) / 2);
+}
+
+
+.cnavbar {
+  position: relative;
+  min-height: $navbar-height; // Ensure a navbar always shows (e.g., without a .cnavbar-brand in collapsed mode)
+  margin-bottom: $navbar-margin-bottom;
+  border: 1px solid transparent;
+
+  // Prevent floats from breaking the navbar
+  @extend .clearfix;
+
+  @media (min-width: $grid-float-breakpoint) {
+    border-radius: $navbar-border-radius;
+  }
+}
+
+// Navbar collapse (body)
+//
+// Group your navbar content into this for easy collapsing and expanding across
+// various device sizes. By default, this content is collapsed when <768px, but
+// will expand past that for a horizontal display.
+//
+// To start (on mobile devices) the navbar links, forms, and buttons are stacked
+// vertically and include a `max-height` to overflow in case you have too much
+// content for the user's viewport.
+
+$navbar-padding-vertical: 15px;
+$navbar-padding-horizontal: 15px;
+
+.cnavbar-collapse {
+  max-height: 340px;
+  overflow-x: visible;
+  padding-right: $navbar-padding-horizontal;
+  padding-left:  $navbar-padding-horizontal;
+  border-top: 1px solid transparent;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.1);
+  @extend .clearfix;
+  -webkit-overflow-scrolling: touch;
+
+  &.in {
+    overflow-y: auto;
+  }
+
+  @media (min-width: $grid-float-breakpoint) {
+    width: auto;
+    border-top: 0;
+    box-shadow: none;
+
+    &.collapse {
+      display: block !important;
+      height: auto !important;
+      padding-bottom: 0; // Override default setting
+      overflow: visible !important;
+    }
+
+    &.in {
+      overflow-y: auto;
+    }
+
+    // Account for first and last children spacing
+    .cnavbar-nav.cnavbar-left:first-child {
+      margin-left: -($navbar-padding-horizontal);
+    }
+    .cnavbar-nav.cnavbar-right:last-child {
+      margin-right: -($navbar-padding-horizontal);
+    }
+    .cnavbar-text:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+
+// Both navbar header and collapse
+//
+// When a container is present, change the behavior of the header and collapse.
+
+.container > .cnavbar-header,
+.container > .cnavbar-collapse {
+  margin-right: -($navbar-padding-horizontal);
+  margin-left:  -($navbar-padding-horizontal);
+
+  @media (min-width: $grid-float-breakpoint) {
+    margin-right: 0;
+    margin-left:  0;
+  }
+}
+
+
+//
+// Navbar alignment options
+//
+// Display the navbar across the entirety of the page or fixed it to the top or
+// bottom of the page.
+
+// Static top (unfixed, but 100% wide) navbar
+
+$zindex-navbar: 1000;
+$zindex-navbar-fixed: 1030;
+
+.cnavbar-static-top {
+  z-index: $zindex-navbar;
+  border-width: 0 0 1px;
+
+  @media (min-width: $grid-float-breakpoint) {
+    border-radius: 0;
+  }
+}
+
+// Fix the top/bottom navbars when screen real estate supports it
+.cnavbar-fixed-top,
+.cnavbar-fixed-bottom {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: $zindex-navbar-fixed;
+
+  // Undo the rounded corners
+  @media (min-width: $grid-float-breakpoint) {
+    border-radius: 0;
+  }
+}
+.cnavbar-fixed-top {
+  top: 0;
+  border-width: 0 0 1px;
+}
+.cnavbar-fixed-bottom {
+  bottom: 0;
+  margin-bottom: 0; // override .cnavbar defaults
+  border-width: 1px 0 0;
+}
+
+
+// Brand/project name
+$font-size-large: 18px;
+$line-height-computed: 20px;
+
+.cnavbar-brand {
+  float: left;
+  padding: $navbar-padding-vertical $navbar-padding-horizontal;
+  font-size: $font-size-large;
+  line-height: $line-height-computed;
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+
+  @media (min-width: $grid-float-breakpoint) {
+    .cnavbar > .container & {
+      margin-left: -$navbar-padding-horizontal;
+    }
+  }
+}
+
+
+// Navbar toggle
+//
+// Custom button for toggling the `.cnavbar-collapse`, powered by the collapse
+// JavaScript plugin.
+
+$border-radius-base: 4px;
+
+.cnavbar-toggle {
+  position: relative;
+  float: right;
+  padding: 9px 10px;
+  margin-right: $navbar-padding-horizontal;
+  @include navbar-vertical-align(34px);
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: $border-radius-base;
+
+  // Bars
+  .icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    border-radius: 1px;
+  }
+  .icon-bar + .icon-bar {
+    margin-top: 4px;
+  }
+
+  @media (min-width: $grid-float-breakpoint) {
+    display: none;
+  }
+}
+
+
+// Navbar nav links
+//
+// Builds on top of the `.cnav` components with it's own modifier class to make
+// the nav the full height of the horizontal nav (above 768px).
+
+.cnavbar-nav {
+  margin: ($navbar-padding-vertical / 2) (-$navbar-padding-horizontal);
+
+  > li > a {
+    padding-top:    10px;
+    padding-bottom: 10px;
+    line-height: $line-height-computed;
+  }
+
+
+  // Uncollapse the nav
+  @media (min-width: $grid-float-breakpoint) {
+    float: left;
+    margin: 0;
+
+    > li {
+      float: left;
+      > a {
+        padding-top: (($navbar-height - $line-height-computed) / 2);
+        padding-bottom: (($navbar-height - $line-height-computed) / 2);
+      }
+    }
+  }
+
+}
+
+@mixin border-top-radius($radius) {
+  border-top-right-radius: $radius;
+  border-top-left-radius: $radius;
+}
+
+@mixin border-bottom-radius($radius) {
+  border-bottom-right-radius: $radius;
+   border-bottom-left-radius: $radius;
+}
+
+// Dropdown menus
+
+// Menu position and menu carets
+.cnavbar-nav > li > .dropdown-menu {
+  margin-top: 0;
+  @include border-top-radius(0);
+}
+// Menu position and menu caret support for dropups via extra dropup class
+.cnavbar-fixed-bottom .cnavbar-nav > li > .dropdown-menu {
+  @include border-bottom-radius(0);
+}
+
+// Right aligned menus need alt position
+.cnavbar-nav.pull-right > li > .dropdown-menu,
+.cnavbar-nav > li > .dropdown-menu.pull-right {
+  left: auto;
+  right: 0;
+}
+
+// Alternate navbars
+// --------------------------------------------------
+$navbar-default-bg: #f8f8f8;
+$navbar-default-border: #e7e7e7;
+$navbar-default-brand-color: #777777;
+$navbar-default-brand-hover-color: #dddddd;
+$navbar-default-brand-hover-bg: #dddddd;
+$navbar-default-link-color: #777777;
+$navbar-default-link-hover-color: #555555;
+$navbar-default-link-hover-bg: #e7e7e7;
+$navbar-default-link-active-color: #555555;
+$navbar-default-link-active-bg: #e7e7e7;
+$navbar-default-link-disabled-color: #cccccc;
+$navbar-default-link-disabled-bg: transparent;
+$navbar-default-toggle-border-color: #dddddd;
+$navbar-default-toggle-hover-bg: #dddddd;
+$navbar-default-toggle-icon-bar-bg: #cccccc;
+
+// Default navbar
+.cnavbar-default {
+  background-color: $navbar-default-bg;
+  border-color: $navbar-default-border;
+
+  .cnavbar-brand {
+    color: $navbar-default-brand-color;
+    &:hover,
+    &:focus {
+      color: $navbar-default-brand-hover-color;
+      background-color: $navbar-default-brand-hover-bg;
+    }
+  }
+
+  .cnavbar-nav {
+    > li > a {
+      color: $navbar-default-link-color;
+
+      &:hover,
+      &:focus {
+        color: $navbar-default-link-hover-color;
+        background-color: $navbar-default-link-hover-bg;
+      }
+    }
+    > .active > a {
+      &,
+      &:hover,
+      &:focus {
+        color: $navbar-default-link-active-color;
+        background-color: $navbar-default-link-active-bg;
+      }
+    }
+    > .disabled > a {
+      &,
+      &:hover,
+      &:focus {
+        color: $navbar-default-link-disabled-color;
+        background-color: $navbar-default-link-disabled-bg;
+      }
+    }
+  }
+
+  .cnavbar-toggle {
+    border-color: $navbar-default-toggle-border-color;
+    &:hover,
+    &:focus {
+      background-color: $navbar-default-toggle-hover-bg;
+    }
+    .icon-bar {
+      background-color: $navbar-default-toggle-icon-bar-bg;
+    }
+  }
+
+  .cnavbar-collapse,
+  .cnavbar-form {
+    border-color: $navbar-default-border;
+  }
+
+  // Dropdown menu items and carets
+  .cnavbar-nav {
+    // Caret should match text color on hover
+    > .dropdown > a:hover .caret,
+    > .dropdown > a:focus .caret {
+      border-top-color: $navbar-default-link-hover-color;
+      border-bottom-color: $navbar-default-link-hover-color;
+    }
+
+    // Remove background color from open dropdown
+    > .open > a {
+      &,
+      &:hover,
+      &:focus {
+        background-color: $navbar-default-link-active-bg;
+        color: $navbar-default-link-active-color;
+        .caret {
+          border-top-color: $navbar-default-link-active-color;
+          border-bottom-color: $navbar-default-link-active-color;
+        }
+      }
+    }
+    > .dropdown > a .caret {
+      border-top-color: $navbar-default-link-color;
+      border-bottom-color: $navbar-default-link-color;
+    }
+
+
+    @media (max-width: $screen-xs-max) {
+      // Dropdowns get custom display when collapsed
+      .open .dropdown-menu {
+        > li > a {
+          color: $navbar-default-link-color;
+          &:hover,
+          &:focus {
+            color: $navbar-default-link-hover-color;
+            background-color: $navbar-default-link-hover-bg;
+          }
+        }
+        > .active > a {
+          &,
+          &:hover,
+          &:focus {
+            color: $navbar-default-link-active-color;
+            background-color: $navbar-default-link-active-bg;
+          }
+        }
+        > .disabled > a {
+          &,
+          &:hover,
+          &:focus {
+            color: $navbar-default-link-disabled-color;
+            background-color: $navbar-default-link-disabled-bg;
+          }
+        }
+      }
+    }
+  }
+
+
+  // Links in navbars
+  //
+  // Add a class to ensure links outside the navbar nav are colored correctly.
+
+  .cnavbar-link {
+    color: $navbar-default-link-color;
+    &:hover {
+      color: $navbar-default-link-hover-color;
+    }
+  }
+
+}

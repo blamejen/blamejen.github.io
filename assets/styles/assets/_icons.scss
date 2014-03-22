@@ -1,0 +1,58 @@
+
+@charset "UTF-8";
+
+@font-face {
+  font-family: "nok";
+  src:url("../ico/nok.eot");
+  src:url("../ico/nok.eot?#iefix") format("embedded-opentype"),
+    url("../ico/nok.ttf") format("truetype"),
+    url("../ico/nok.svg#nok") format("svg"),
+    url("../ico/nok.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+[data-icon]:before {
+  font-family: "nok" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icostic-"]:before,
+[class*=" icostic-"]:before {
+  font-family: "nok" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.icostic-facebook:before {
+  content: "a";
+}
+
+.icostic-twitter:before {
+  content: "b";
+}
+
+.icostic-linkedin:before {
+  content: "c";
+}
+
+.icostic-github:before {
+  content: "d";
+}
+

@@ -1,0 +1,36 @@
+$screen-xs : 400px; 
+$screen-xs-max : 767px;
+$screen-sm : 768px;
+$screen-sm-max : 991px;
+$screen-md : 992px;
+$screen-md-max : 1199px;
+$screen-lg : 1200px;
+
+/* Extra small devices (phones, up to 480px) */
+/* No media query since this is the default in Bootstrap */
+@media (max-width: $screen-xs-max) { 
+	
+}
+
+@media (max-width: $screen-sm-max) { 
+	
+}
+
+@media (max-width: $screen-md-max) { 
+	
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: $screen-sm) { 
+	
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: $screen-md) {
+
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: $screen-lg) {
+
+}

@@ -1,0 +1,25 @@
+@mixin footer() {  // sticky footer
+  html, body {
+    height: 100%;
+  }
+  .page {
+    display: table;
+    height: 100%;
+    width: 100%;
+  }
+  footer {
+    display: table-row;
+    height: 1px;
+  }
+}
+
+@include footer();
+
+footer {
+  .container {
+    padding: {
+      top: baseline();
+      bottom: baseline(); 
+    }
+  }
+}
