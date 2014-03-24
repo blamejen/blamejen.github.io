@@ -36,6 +36,7 @@ textarea {
 }
 
 a {
+    @include transition(.2);
     color: inherit;
     text-decoration: underline;
     &:hover {
@@ -51,10 +52,21 @@ a {
 }
 
 h1,h2,h3,h4,h5,h6 {
-    //@include text();
+    @include text(1.0,45);
     color: $textclr;
-    margin: 0;
-    padding: 0;
+}
+
+h1 {
+  @include font-size(2.2);
+}
+h2 {
+  @include font-size(2.0);
+}
+h3 {
+  @include font-size(1.8);
+}
+h4, h5, h6 {
+  @include font-size(1.6);
 }
 
 form {

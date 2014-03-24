@@ -1,3 +1,24 @@
-name: blamejen's very personal coding log
-markdown: redcarpet
-pygments: true
+# Dependencies
+markdown:         redcarpet
+pygments:         true
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            블레임젠
+tagline:          'very personal coding log'
+description:      'by @blamejen'
+url:              http://blamejen.github.io
+
+author:
+  name:           'Jen Yang'
+  url:            https://blamejen.net
+
+paginate:         4
+
+# Custom vars
+version:          1.0.0
+
+github:
+  repo:           https://github.com/blamejen/blamejen.github.io

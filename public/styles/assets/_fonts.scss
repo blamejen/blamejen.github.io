@@ -1,6 +1,6 @@
 @mixin font-size($sizeValue: 1.6){
   font-size: ($sizeValue * 10) + px;
-  font-size: $sizeValue + rem;
+  //font-size: $sizeValue + rem;
 }
 
 @mixin line-height($sizeValue: 1.6){
@@ -31,7 +31,7 @@ $nanum: '나눔고딕';
 	@return $style;
 }
 
-@mixin text($size:2.0,$s:35,$lineheight:1,$l:0) {
+@mixin text($size:1.6,$s:35,$lineheight:1,$l:0) {
 	
 	$font: '';
 	@if $s < 35 { $font: "Helvetica Neue"; } @else { $font: $nanum; }
@@ -39,7 +39,6 @@ $nanum: '나눔고딕';
   	font : {
 		family : $font, NanumGothic, '돋움',Dotum, Helvetica, Arial, sans-serif;
 		
-		weight: weight( $s );
 		style:  style( $s );
 	}
 	@include font-size($size);
