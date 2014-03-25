@@ -9,5 +9,8 @@ header {
 			color: $black;
 		}
 	}
-	padding-bottom: baseline(2);
+	padding : {
+		top: baseline();
+		bottom: baseline(2);
+	}
 }

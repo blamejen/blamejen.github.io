@@ -8,6 +8,6 @@ $ jekyll serve
 
 ## Author
 
-**Mark Otto**
+**Jen Yang**
 - <https://github.com/blamejen>
 - <https://twitter.com/blamejen>
