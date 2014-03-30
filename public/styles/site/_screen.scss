@@ -48,19 +48,35 @@ hr {
 }
 
 .post {
-    @include text(1.8,35,1.4);
+    @include text(1.6,35,1.4);
     time {
         @include text(1.4,36,1);
         display: block;
     }
     time + h1 {
-        margin-top: baseline(.3);
+        margin : {
+            top: baseline(.3);
+            bottom: baseline(2);
+        }
         color: $textclr;
         font-weight: bold;
-        @include text(4.0,45,1);
+        @include text(3.0,45,1);
         a {
             color: $pinkred;
             text-decoration: none;
         }
     }
+}
+
+h2 {
+    @include text(2.0,35,1);
+}
+
+h3 {
+    @include text(2.0,35,1);
+    text-decoration: underline;
+}
+
+h4 {
+    @include text(1.8,45,1);
 }

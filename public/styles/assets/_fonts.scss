@@ -13,10 +13,10 @@ $nanum: '나눔고딕';
 @function weight( $style ) {
 	$weight:0;
 	
-	@if 	 $style == 35 { $weight: 300; }
-	@else if $style == 36 { $weight: 300; }
-	@else if $style == 45 { $weight: 400; }
-	@else if $style == 46 { $weight: 400; }
+	@if 	 $style == 35 { $weight: normal; }
+	@else if $style == 36 { $weight: normal; }
+	@else if $style == 45 { $weight: bold; }
+	@else if $style == 46 { $weight: bold; }
 	
 	@return $weight;
 }
@@ -38,8 +38,8 @@ $nanum: '나눔고딕';
 	
   	font : {
 		family : $font, NanumGothic, '돋움',Dotum, Helvetica, Arial, sans-serif;
-		
-		style:  style( $s );
+		weight: weight($s);
+		style:  style($s);
 	}
 	@include font-size($size);
 	letter-spacing: #{$l}px;
